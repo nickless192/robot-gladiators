@@ -1,25 +1,41 @@
+var fightOrSkip = function() {
+    // ask player if they'd like to fight or skip
+    debugger;
+    var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
+
+    promptFight = promptFight.toLowerCase();
+    // enter the conditional recursive function call here
+    while (promptFight === "" || promptFight === null) {
+        window.alert("You need to provide a valid answer! Please try again.")
+        return fightOrSkip();
+    }
+
+    if (promptFight === "skip") {
+        // confirm player wants to skip
+        var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+
+        if (confirmSkip) {
+            window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+            // subtract money from playerMoney for skipping
+            playerInfo.money -= 10;
+
+            return true;
+            //shop();
+        }
+    }
+
+
+    return false;
+}
+
 var fight = function(enemy) {
     // Alert players that they are starting the round
     while (playerInfo.health > 0 && enemy.health > 0) {
 
 
-        var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
-        
-        if (promptFight === "skip" || promptFight === "SKIP") {
-            //confirm if the player wants to skip
-            var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-
-            // if yes, leave fight
-            if (confirmSkip) {
-                window.alert( playerInfo.name + " has chosen to skip the fight. Goodbye!");
-                // subtract money from playerInfo.money for skipping
-                playerInfo.money = Math.max(0, playerInfo.money - 10);
-                console.log("playerInfo.money ", playerInfo.money);
-                break;
-            }
-        } else if (promptFight !== "fight" && promptFight !== "FIGHT") {
-            window.alert("Invalid selection. Please select FIGHT or SKIP");
-            fight(enemy.name);
+        if (fightOrSkip()) {
+            //if true, leave fight by breaking loop
+            break;
         };
 
 
