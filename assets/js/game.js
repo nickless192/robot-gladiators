@@ -1,6 +1,5 @@
 var fightOrSkip = function() {
     // ask player if they'd like to fight or skip
-    debugger;
     var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
 
     promptFight = promptFight.toLowerCase();
@@ -126,6 +125,18 @@ var endGame = function() {
     // if player is still alive, player wins!
     if (playerInfo.health > 0) {
         window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
+        var currentHighScore = localStorage.getItem("highScore");
+        if (currentHighScore === null) {
+            currentHighScore = 0;
+        }
+        if (playerInfo.money > currentHighScore) {
+            window.alert("Congratulations! Your robot " + playerInfo.name + " has a new high score of " + playerInfo.money);
+            localStorage.setItem("name",playerInfo.name);
+            localStorage.setItem("highScore", playerInfo.money.toString());
+        }
+        else {
+            window.alert("Your robot " + playerInfo.name + " did not beat the high score of "+ playerInfo.money + "!");
+        }
     } else {
         window.alert("You've lost your robot in battle.")
     };
